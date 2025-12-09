@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36511.14 d17.14
+VisualStudioVersion = 17.14.36511.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kaxut_new", "Kaxut_new\Kaxut_new.csproj", "{084B1F9E-490C-4363-A89D-CC5DA5FB05EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Domain", "App.Domain\App.Domain.csproj", "{C34A17F1-B463-4D0B-B2C1-E33E81813564}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Appplication", "App.Appplication\App.Appplication.csproj", "{43EA3120-7839-4392-A009-9411B658BE72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Infrastructure", "App.Infrastructure\App.Infrastructure.csproj", "{2998A63F-9044-42B8-8A8D-F3381DCAB397}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{084B1F9E-490C-4363-A89D-CC5DA5FB05EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{084B1F9E-490C-4363-A89D-CC5DA5FB05EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{084B1F9E-490C-4363-A89D-CC5DA5FB05EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C34A17F1-B463-4D0B-B2C1-E33E81813564}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C34A17F1-B463-4D0B-B2C1-E33E81813564}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C34A17F1-B463-4D0B-B2C1-E33E81813564}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C34A17F1-B463-4D0B-B2C1-E33E81813564}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43EA3120-7839-4392-A009-9411B658BE72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43EA3120-7839-4392-A009-9411B658BE72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43EA3120-7839-4392-A009-9411B658BE72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43EA3120-7839-4392-A009-9411B658BE72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2998A63F-9044-42B8-8A8D-F3381DCAB397}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2998A63F-9044-42B8-8A8D-F3381DCAB397}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2998A63F-9044-42B8-8A8D-F3381DCAB397}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2998A63F-9044-42B8-8A8D-F3381DCAB397}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

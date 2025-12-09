@@ -27,6 +27,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\App.Appplication\App.Appplication.csproj" />
+    <ProjectReference Include="..\App.Domain\App.Domain.csproj" />
+    <ProjectReference Include="..\App.Infrastructure\App.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Images\IMG_8990.JPG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
