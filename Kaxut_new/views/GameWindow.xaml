@@ -1,0 +1,80 @@
+﻿<Window x:Class="Kaxut_new.GameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Kahoot Game" Height="420" Width="640">
+    <Grid>
+
+        <!--=== ФОН ===-->
+        <Image Source="/Images/IMG_8990.JPG"
+            Stretch="UniformToFill"
+            Panel.ZIndex="-1"/>
+        <Grid Margin="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Question -->
+                <RowDefinition Height="8"/>
+                <!-- Spacer -->
+                <RowDefinition Height="Auto"/>
+                <!-- Status (timer/score/progress) -->
+                <RowDefinition Height="12"/>
+                <!-- Spacer -->
+                <RowDefinition Height="*"/>
+                <!-- Answers grid -->
+                <RowDefinition Height="*"/>
+                <!-- Filler (optional) -->
+            </Grid.RowDefinitions>
+
+            <!-- Вопрос -->
+            <Label Grid.Row="0">
+                <TextBlock x:Name="lblQuestion"
+                       TextWrapping="Wrap"
+                       FontSize="16"
+                       FontWeight="Bold" 
+                       Foreground="White" />
+            </Label>
+
+            <!-- Статус: таймер, очки, прогресс -->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Time:" FontWeight="Bold" VerticalAlignment="Center" Foreground="White"/>
+                <TextBlock x:Name="txtTimer" Grid.Column="1" Margin="6,0,0,0" VerticalAlignment="Center" Foreground="White"/>
+                <TextBlock x:Name="txtScore" Grid.Column="2" VerticalAlignment="Center" Foreground="White"/>
+                <TextBlock Grid.Column="3" Foreground="White"/>
+                <TextBlock x:Name="txtProgress" Grid.Column="4" VerticalAlignment="Center" Foreground="Black"/>
+            </Grid>
+
+            <!-- Кнопки ответов: 2x2 -->
+            <Border Grid.Row="4" Padding="4" Background="#0F000000" CornerRadius="6">
+                <UniformGrid Rows="2" Columns="2" Margin="0">
+                    <Button x:Name="btnAnswer0"
+                        Margin="6"
+                        Height="64"
+                        FontSize="14"
+                        Click="AnswerButton_Click"/>
+                    <Button x:Name="btnAnswer1"
+                        Margin="6"
+                        Height="64"
+                        FontSize="14"
+                        Click="AnswerButton_Click"/>
+                    <Button x:Name="btnAnswer2"
+                        Margin="6"
+                        Height="64"
+                        FontSize="14"
+                        Click="AnswerButton_Click"/>
+                    <Button x:Name="btnAnswer3"
+                        Margin="6"
+                        Height="64"
+                        FontSize="14"
+                        Click="AnswerButton_Click"/>
+                </UniformGrid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

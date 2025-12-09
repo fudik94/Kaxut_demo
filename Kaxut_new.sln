@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36511.14 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kaxut_new", "Kaxut_new\Kaxut_new.csproj", "{084B1F9E-490C-4363-A89D-CC5DA5FB05EF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{084B1F9E-490C-4363-A89D-CC5DA5FB05EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{084B1F9E-490C-4363-A89D-CC5DA5FB05EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{084B1F9E-490C-4363-A89D-CC5DA5FB05EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{084B1F9E-490C-4363-A89D-CC5DA5FB05EF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {68054867-E5E8-4E83-AC6E-6B9039B3A652}
+	EndGlobalSection
+EndGlobal
