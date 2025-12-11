@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Kaxut_new.Models
+namespace App.Domain.Entities
 {
     public class ChoiceQuestion : Question
     {

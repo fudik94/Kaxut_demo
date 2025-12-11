@@ -1,9 +1,7 @@
-﻿using Kaxut_new.Models;
+﻿using App.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 
-namespace Kaxut_new.Data
+namespace App.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
@@ -24,7 +22,7 @@ namespace Kaxut_new.Data
             base.OnModelCreating(modelBuilder);
 
             // ------------------------------
-            // Настройка наследования (TPH)
+            // Наследование TPH
             // ------------------------------
             modelBuilder.Entity<Question>()
                 .HasDiscriminator<string>("QuestionType")
@@ -32,14 +30,14 @@ namespace Kaxut_new.Data
                 .HasValue<ChoiceQuestion>("Choice");
 
             // ------------------------------
-            // Уникальный бизнес-индекс
+            // Уникальный индекс
             // ------------------------------
             modelBuilder.Entity<Quiz>()
                 .HasIndex(q => q.Code)
                 .IsUnique();
 
             // ------------------------------
-            // N-N связь Question <-> Tag
+            // Связь Many-to-Many Question <-> Tag
             // ------------------------------
             modelBuilder.Entity<Question>()
                 .HasMany(q => q.Tags)
