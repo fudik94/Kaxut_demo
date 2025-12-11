@@ -1,35 +1,34 @@
-﻿using Kaxut_new.Models;
+﻿using App.Domain.Entities;
+using Kaxut_new;
 using System;
 using System.Windows;
 
 namespace Kaxut_new
 {
-    /// <summary>
-    /// Главное окно-конструктор: создаёт список вопросов и запускает игру.
-    /// </summary>
     public partial class MainWindow : Window
     {
-        // Хранилище викторины (список вопросов)
-        private readonly Kahoot _kahoot = new Kahoot();
+        private readonly Quiz _quiz = new Quiz
+        {
+            Code = "QZ001",
+            Title = "New Quiz"
+        };
 
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = _kahoot;
+            DataContext = _quiz;
         }
 
-        // Запуск игры: открываем GameWindow и передаём текущую викторину
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            if (_kahoot.Questions.Count == 0)
+            if (_quiz.Questions.Count == 0)
             {
                 MessageBox.Show(this, "Add at least one question before starting.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
-            var gameWindow = new GameWindow(_kahoot)
+            var gameWindow = new GameWindow(_quiz)
             {
-                // Владелец — главное окно (для корректной активации и центрирования)
                 Owner = this
             };
             gameWindow.Show();
@@ -37,28 +36,20 @@ namespace Kaxut_new
 
         private void btnAddQuestion_Click(object sender, RoutedEventArgs e)
         {
-            // Сначала проверяем, заполнены ли вопрос и 4 ответа
             var text = txtQuestion.Text?.Trim();
             var a0 = txtAnswer0.Text?.Trim();
             var a1 = txtAnswer1.Text?.Trim();
             var a2 = txtAnswer2.Text?.Trim();
             var a3 = txtAnswer3.Text?.Trim();
 
-            if (string.IsNullOrWhiteSpace(text) ||
-                string.IsNullOrWhiteSpace(a0) ||
-                string.IsNullOrWhiteSpace(a1) ||
-                string.IsNullOrWhiteSpace(a2) ||
+            if (string.IsNullOrWhiteSpace(text) || string.IsNullOrWhiteSpace(a0) ||
+                string.IsNullOrWhiteSpace(a1) || string.IsNullOrWhiteSpace(a2) ||
                 string.IsNullOrWhiteSpace(a3))
             {
-                MessageBox.Show(this,
-                    "Fill in the question and all FOUR answers.",
-                    "Input error",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
+                MessageBox.Show(this, "Fill in the question and all FOUR answers.", "Input error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Только после того как все текстовые поля заполнены — проверяем, выбран ли правильный ответ
             int correctIndex =
                 rbCorrect0.IsChecked == true ? 0 :
                 rbCorrect1.IsChecked == true ? 1 :
@@ -67,53 +58,51 @@ namespace Kaxut_new
 
             if (correctIndex == -1)
             {
-                MessageBox.Show(this,
-                    "Choose the correct answer.",
-                    "Input error",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
+                MessageBox.Show(this, "Choose the correct answer.", "Input error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            try
+            // Создаём MultipleChoiceQuestion
+            var question = new MultipleChoiceQuestion
             {
-                _kahoot.AddQuestion(text, a0, a1, a2, a3, correctIndex);
-                txtStatus.Text = $"Added: {_kahoot.Questions.Count}";
+                Text = text,
+                Order = _quiz.Questions.Count + 1,
+                CorrectIndex = correctIndex,
+                Options = new System.Collections.Generic.List<AnswerOption>
+                {
+                    new AnswerOption { Text = a0, IsCorrect = correctIndex == 0 },
+                    new AnswerOption { Text = a1, IsCorrect = correctIndex == 1 },
+                    new AnswerOption { Text = a2, IsCorrect = correctIndex == 2 },
+                    new AnswerOption { Text = a3, IsCorrect = correctIndex == 3 }
+                }
+            };
 
-                // Очистка полей
-                txtQuestion.Clear();
-                txtAnswer0.Clear();
-                txtAnswer1.Clear();
-                txtAnswer2.Clear();
-                txtAnswer3.Clear();
-                rbCorrect0.IsChecked = rbCorrect1.IsChecked =
-                    rbCorrect2.IsChecked = rbCorrect3.IsChecked = false;
-            }
-            catch (System.Exception ex)
-            {
-                MessageBox.Show(this,
-                    "Error: " + ex.Message,
-                    "Exception",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-            }
+            _quiz.Questions.Add(question);
+
+            txtStatus.Text = $"Added: {_quiz.Questions.Count}";
+
+            txtQuestion.Clear();
+            txtAnswer0.Clear();
+            txtAnswer1.Clear();
+            txtAnswer2.Clear();
+            txtAnswer3.Clear();
+            rbCorrect0.IsChecked = rbCorrect1.IsChecked =
+                rbCorrect2.IsChecked = rbCorrect3.IsChecked = false;
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             if (lstQuestions.SelectedItem is Question selected)
             {
-                _kahoot.Questions.Remove(selected);
+                _quiz.Questions.Remove(selected);
                 txtStatus.Text = "Question deleted.";
             }
             else
             {
-                MessageBox.Show(this, "Select a question to delete.", "Info",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(this, "Select a question to delete.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
-        // Необязательно: публичное свойство для доступа к текущей викторине
-        public Kahoot CurrentKahoot => _kahoot;
+        public Quiz CurrentQuiz => _quiz;
     }
 }

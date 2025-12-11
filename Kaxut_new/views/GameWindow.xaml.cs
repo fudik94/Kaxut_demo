@@ -1,18 +1,19 @@
-﻿using System;
+﻿using App.Domain.Entities;
+using Kaxut_new;
+using System;
+using System.IO;
+using System.Media;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
-using System.Media;
-using System.IO;
-using Kaxut_new.Models;
 
 namespace Kaxut_new
 {
     public partial class GameWindow : Window
     {
-        private readonly Kahoot _kahoot;
+        private readonly Quiz _quiz;
 
         private int _currentIndex;
         private int _score;
@@ -29,10 +30,10 @@ namespace Kaxut_new
         private Brush? _defaultButtonBackground;
         private Brush? _defaultButtonForeground;
 
-        public GameWindow(Kahoot kahoot)
+        public GameWindow(Quiz quiz)
         {
             InitializeComponent();
-            _kahoot = kahoot ?? throw new ArgumentNullException(nameof(kahoot));
+            _quiz = quiz ?? throw new ArgumentNullException(nameof(quiz));
 
             _defaultButtonBackground = btnAnswer0.Background;
             _defaultButtonForeground = btnAnswer0.Foreground;
@@ -53,9 +54,7 @@ namespace Kaxut_new
 
         private SoundPlayer? CreatePlayer(string path)
         {
-            if (!File.Exists(path))
-                return null;
-
+            if (!File.Exists(path)) return null;
             var player = new SoundPlayer(path);
             try { player.LoadAsync(); } catch { }
             return player;
@@ -77,7 +76,7 @@ namespace Kaxut_new
 
         private void LoadCurrentQuestion()
         {
-            if (_currentIndex < 0 || _currentIndex >= _kahoot.Questions.Count)
+            if (_currentIndex < 0 || _currentIndex >= _quiz.Questions.Count)
             {
                 EndGame();
                 return;
@@ -87,14 +86,14 @@ namespace Kaxut_new
             ResetAnswerButtonsStyles();
             SetAnswerButtonsEnabled(true);
 
-            if (_kahoot.Questions[_currentIndex] is not MultipleChoiceQuestion q)
-                return;
+            if (_quiz.Questions[_currentIndex] is not MultipleChoiceQuestion q) return;
 
             lblQuestion.Text = q.Text;
-            btnAnswer0.Content = q.Answers[0];
-            btnAnswer1.Content = q.Answers[1];
-            btnAnswer2.Content = q.Answers[2];
-            btnAnswer3.Content = q.Answers[3];
+
+            btnAnswer0.Content = q.Options[0].Text;
+            btnAnswer1.Content = q.Options[1].Text;
+            btnAnswer2.Content = q.Options[2].Text;
+            btnAnswer3.Content = q.Options[3].Text;
 
             _timeRemaining = QuestionTimeSeconds;
             UpdateStatus();
@@ -123,16 +122,26 @@ namespace Kaxut_new
             int selectedIndex = GetButtonIndex(sender);
             if (selectedIndex < 0) return;
 
-            if (_kahoot.Questions[_currentIndex] is not MultipleChoiceQuestion mcq) return;
+            if (_quiz.Questions[_currentIndex] is not MultipleChoiceQuestion mcq) return;
 
             int correctIndex = mcq.CorrectIndex;
-            bool isCorrect = mcq.IsCorrect(selectedIndex);
+            bool isCorrect = selectedIndex == correctIndex;
 
             AnimateAnswer(correctIndex, true);
             if (!isCorrect) AnimateAnswer(selectedIndex, false);
 
-            if (isCorrect) { _soundWin?.Stop(); _soundWin?.Play(); _correctCount++; _score += 10 + Math.Max(0, _timeRemaining); }
-            else { _soundFail?.Stop(); _soundFail?.Play(); }
+            if (isCorrect)
+            {
+                _soundWin?.Stop();
+                _soundWin?.Play();
+                _correctCount++;
+                _score += 10 + Math.Max(0, _timeRemaining);
+            }
+            else
+            {
+                _soundFail?.Stop();
+                _soundFail?.Play();
+            }
 
             UpdateStatus();
             SetAnswerButtonsEnabled(false);
@@ -148,7 +157,7 @@ namespace Kaxut_new
             if (_answered) return;
             _answered = true;
 
-            if (_kahoot.Questions[_currentIndex] is not MultipleChoiceQuestion mcq) return;
+            if (_quiz.Questions[_currentIndex] is not MultipleChoiceQuestion mcq) return;
 
             AnimateAnswer(mcq.CorrectIndex, true);
             SetAnswerButtonsEnabled(false);
@@ -221,7 +230,7 @@ namespace Kaxut_new
         {
             txtTimer.Text = $"{_timeRemaining}s";
             txtScore.Text = $"Score: {_score}";
-            txtProgress.Text = $"{_currentIndex + 1}/{_kahoot.Questions.Count}";
+            txtProgress.Text = $"{_currentIndex + 1}/{_quiz.Questions.Count}";
         }
 
         private void EndGame()
@@ -236,9 +245,8 @@ namespace Kaxut_new
             Close();
         }
 
-        private System.Windows.Controls.Button? GetButtonByIndex(int index)
-        {
-            return index switch
+        private System.Windows.Controls.Button? GetButtonByIndex(int index) =>
+            index switch
             {
                 0 => btnAnswer0,
                 1 => btnAnswer1,
@@ -246,7 +254,6 @@ namespace Kaxut_new
                 3 => btnAnswer3,
                 _ => null
             };
-        }
 
         private int GetButtonIndex(object sender)
         {

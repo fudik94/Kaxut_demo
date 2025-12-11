@@ -1,4 +1,4 @@
-﻿using Kaxut_new.Data;
+﻿using App.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
