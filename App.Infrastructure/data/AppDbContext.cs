@@ -1,5 +1,6 @@
 ﻿using App.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using App.Application;
 
 namespace App.Infrastructure.Data
 {

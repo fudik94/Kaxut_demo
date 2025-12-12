@@ -1,24 +1,27 @@
-﻿using App.Infrastructure.Data;
+﻿using App.Application.Interfaces;
+using App.Infrastructure.Services;
+using App.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Windows;
 
-namespace Kaxut_new
+namespace Kaxut_new;
+
+public partial class App : Application
 {
-    public partial class App : Application
+    public static ServiceProvider? Services { get; private set; }
+
+    protected override void OnStartup(StartupEventArgs e)
     {
-        public static ServiceProvider? Services { get; private set; }
+        var services = new ServiceCollection();
 
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            var services = new ServiceCollection();
+        services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlite("Data Source=Kaxut.db"));
 
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlite("Data Source=quiz.db"));
+        services.AddScoped<IQuizService, QuizService>();
 
-            Services = services.BuildServiceProvider();
-            base.OnStartup(e);
-        }
+        Services = services.BuildServiceProvider();
+
+        base.OnStartup(e);
     }
 }

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kaxut_new", "Kaxut_new\Kaxu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Domain", "App.Domain\App.Domain.csproj", "{C34A17F1-B463-4D0B-B2C1-E33E81813564}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Appplication", "App.Appplication\App.Appplication.csproj", "{43EA3120-7839-4392-A009-9411B658BE72}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Application", "App.Appplication\App.Application.csproj", "{43EA3120-7839-4392-A009-9411B658BE72}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Infrastructure", "App.Infrastructure\App.Infrastructure.csproj", "{2998A63F-9044-42B8-8A8D-F3381DCAB397}"
 EndProject
