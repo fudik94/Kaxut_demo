@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;   
 using System.Collections.Generic;
 
 namespace App.Domain.Entities
@@ -7,14 +8,14 @@ namespace App.Domain.Entities
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        // Уникальное бизнес-значение
         public string Code { get; set; } = string.Empty;
 
         public string Title { get; set; } = string.Empty;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        // 1-N: Quiz → Questions
-        public List<Question> Questions { get; set; } = new();
+
+        public ObservableCollection<Question> Questions { get; set; }
+            = new ObservableCollection<Question>();
     }
 }
