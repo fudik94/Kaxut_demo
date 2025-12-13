@@ -17,7 +17,10 @@ namespace App.Domain.Entities
         // N-N связь через Tag
         public List<Tag> Tags { get; set; } = new();
 
-        // Добавляем AnswerOptions сюда, чтобы все наследники имели варианты ответов
+        // добав AnswerOptions  чтобы все наследники имели варианты ответов
         public List<AnswerOption> AnswerOptions { get; set; } = new();
+
+        // лимит времени
+        public int TimeLimitSeconds { get; set; } = 15;
     }
 }

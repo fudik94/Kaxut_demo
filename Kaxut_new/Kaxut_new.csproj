@@ -9,9 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\back_gr_fin.jpg" />
     <None Remove="Images\IMG_8990.JPG" />
     <None Remove="Sounds\fail.wav" />
     <None Remove="Sounds\win.wav" />
+  </ItemGroup>
+
+  <!-- Ensure broken resx files are excluded -->
+  <ItemGroup>
+    <EmbeddedResource Remove="Properties\Resources.resx" />
+    <EmbeddedResource Remove="Properties\Resources.en.resx" />
+    <EmbeddedResource Remove="Properties\Resources.ru.resx" />
+    <EmbeddedResource Remove="Properties\Resources.et.resx" />
+    <EmbeddedResource Remove="Resources\Strings.en.resx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +52,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\back_gr_fin.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\IMG_8990.JPG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

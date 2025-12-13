@@ -1,0 +1,24 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+  <system:String x:Key="AppTitle">Kaxut</system:String>
+  <system:String x:Key="Subtitle">Quiz Game</system:String>
+  <system:String x:Key="NewGame">New Game</system:String>
+  <system:String x:Key="LoadGame">Load Game</system:String>
+  <system:String x:Key="Exit">Exit</system:String>
+  <system:String x:Key="Credits">created by : Fuad ,Julia ,Suzanna</system:String>
+  <system:String x:Key="QuestionLabel">Question</system:String>
+  <system:String x:Key="AnswersLabel">Answers (select the correct one)</system:String>
+  <system:String x:Key="AddQuestion">Add Question</system:String>
+  <system:String x:Key="DeleteQuestion">Delete Question</system:String>
+  <system:String x:Key="StartGame">Start Game</system:String>
+  <system:String x:Key="AddedQuestions">Added questions:</system:String>
+  <system:String x:Key="TimeLimitLabel">Time limit(sec):</system:String>
+  <!-- its another windows -->
+  <system:String x:Key="GameTitle">Kahoot Game</system:String>
+  <system:String x:Key="TimeLabel">Time:</system:String>
+  <system:String x:Key="ResultsTitle">Kahoot Results</system:String>
+  <system:String x:Key="ResultsHeader">Results</system:String>
+  <system:String x:Key="CorrectAnswersLabel">Correct answers:</system:String>
+  <system:String x:Key="TotalScoreLabel">Total score:</system:String>
+</ResourceDictionary>

@@ -21,8 +21,6 @@ namespace Kaxut_new
         private int _timeRemaining;
         private bool _answered;
 
-        private const int QuestionTimeSeconds = 15;
-
         private DispatcherTimer? _timer;
         private SoundPlayer? _soundWin;
         private SoundPlayer? _soundFail;
@@ -95,7 +93,7 @@ namespace Kaxut_new
             btnAnswer2.Content = q.Options[2].Text;
             btnAnswer3.Content = q.Options[3].Text;
 
-            _timeRemaining = QuestionTimeSeconds;
+            _timeRemaining = q.TimeLimitSeconds > 0 ? q.TimeLimitSeconds : 15;
             UpdateStatus();
             _timer?.Stop();
             _timer?.Start();

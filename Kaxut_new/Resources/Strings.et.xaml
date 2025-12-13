@@ -1,0 +1,24 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+  <system:String x:Key="AppTitle">Kaxut</system:String>
+  <system:String x:Key="Subtitle">Viktoriin</system:String>
+  <system:String x:Key="NewGame">Uus mäng</system:String>
+  <system:String x:Key="LoadGame">Laadi mäng</system:String>
+  <system:String x:Key="Exit">Välju</system:String>
+  <system:String x:Key="Credits">autorid: Fuad ,Julia ,Suzanna</system:String>
+  <system:String x:Key="QuestionLabel">Küsimus</system:String>
+  <system:String x:Key="AnswersLabel">Vastused (vali õige)</system:String>
+  <system:String x:Key="AddQuestion">Lisa küsimus</system:String>
+  <system:String x:Key="DeleteQuestion">Kustuta küsimus</system:String>
+  <system:String x:Key="StartGame">Alusta mängu</system:String>
+  <system:String x:Key="AddedQuestions">Lisatud küsimused:</system:String>
+  <system:String x:Key="TimeLimitLabel">Aeg limit(sek):</system:String>
+  <!-- its another windows -->
+  <system:String x:Key="GameTitle">Kahoot Mäng</system:String>
+  <system:String x:Key="TimeLabel">Aeg:</system:String>
+  <system:String x:Key="ResultsTitle">Kahoot Tulemused</system:String>
+  <system:String x:Key="ResultsHeader">Tulemused</system:String>
+  <system:String x:Key="CorrectAnswersLabel">Õigeid vastuseid:</system:String>
+  <system:String x:Key="TotalScoreLabel">Koguskoor:</system:String>
+</ResourceDictionary>

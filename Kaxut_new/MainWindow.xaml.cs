@@ -62,12 +62,25 @@ namespace Kaxut_new
                 return;
             }
 
+            // Read and validate time limit
+            int timeLimitSeconds = 15;
+            var timeLimitText = txtTimeLimit.Text?.Trim();
+            if (!string.IsNullOrWhiteSpace(timeLimitText))
+            {
+                if (!int.TryParse(timeLimitText, out timeLimitSeconds) || timeLimitSeconds <= 0 || timeLimitSeconds > 600)
+                {
+                    MessageBox.Show(this, "Enter a valid time limit in seconds (1-600).", "Input error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+            }
+
             // Создаём MultipleChoiceQuestion
             var question = new MultipleChoiceQuestion
             {
                 Text = text,
                 Order = _quiz.Questions.Count + 1,
                 CorrectIndex = correctIndex,
+                TimeLimitSeconds = timeLimitSeconds,
                 Options = new System.Collections.Generic.List<AnswerOption>
                 {
                     new AnswerOption { Text = a0, IsCorrect = correctIndex == 0 },
@@ -86,6 +99,7 @@ namespace Kaxut_new
             txtAnswer1.Clear();
             txtAnswer2.Clear();
             txtAnswer3.Clear();
+            txtTimeLimit.Clear();
             rbCorrect0.IsChecked = rbCorrect1.IsChecked =
                 rbCorrect2.IsChecked = rbCorrect3.IsChecked = false;
         }

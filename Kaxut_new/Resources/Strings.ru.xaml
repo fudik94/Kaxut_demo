@@ -1,0 +1,25 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+  <system:String x:Key="AppTitle">Kaxut</system:String>
+  <system:String x:Key="Subtitle">Викторина</system:String>
+  <system:String x:Key="NewGame">Новая игра</system:String>
+  <system:String x:Key="LoadGame">Загрузить игру</system:String>
+  <system:String x:Key="Exit">Выход</system:String>
+  <system:String x:Key="Credits">авторы: Фуад, Юля, Сюзанна</system:String>
+  <system:String x:Key="QuestionLabel">Вопрос</system:String>
+  <system:String x:Key="AnswersLabel">Ответы (выберите правильный)</system:String>
+  <system:String x:Key="AddQuestion">Добавить вопрос</system:String>
+  <system:String x:Key="DeleteQuestion">Удалить вопрос</system:String>
+  <system:String x:Key="StartGame">Начать игру</system:String>
+  <system:String x:Key="AddedQuestions">Добавленные вопросы:</system:String>
+  <system:String x:Key="TimeLimitLabel">Лимит времени(сек):</system:String>
+  <!-- its another windows -->
+  <system:String x:Key="GameTitle">Игра Kahoot</system:String>
+  <system:String x:Key="TimeLabel">Время:</system:String>
+  <system:String x:Key="ResultsTitle">Результаты Kahoot</system:String>
+  <system:String x:Key="ResultsHeader">Результаты</system:String>
+  <system:String x:Key="CorrectAnswersLabel">Правильных ответов:</system:String>
+  <system:String x:Key="TotalScoreLabel">Общий счет:</system:String>
+  
+</ResourceDictionary>

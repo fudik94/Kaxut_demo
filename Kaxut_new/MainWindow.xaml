@@ -1,28 +1,27 @@
-﻿<Window x:Class="Kaxut_new.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Kahoot Builder" Height="480" Width="640">
+        xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Class="Kaxut_new.MainWindow"
+        Title="Kahoot Builder" Height="480" Width="640" FontFamily="Segoe UI">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <DropShadowEffect x:Key="ShadowMedium" Color="Black" BlurRadius="5" ShadowDepth="1" Opacity="0.15"/>
 
-        <Style x:Key="WatermarkTextBox" TargetType="TextBox">
+        <Style x:Key="WatermarkTextBox" TargetType="{x:Type TextBox}">
             <Setter Property="BorderBrush" Value="#888"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Background" Value="White"/>
             <Setter Property="Padding" Value="4"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="TextBox">
+                    <ControlTemplate TargetType="{x:Type TextBox}">
                         <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4" Effect="{StaticResource ShadowMedium}">
                             <Grid>
                                 <ScrollViewer x:Name="PART_ContentHost"/>
                                 <TextBlock Text="{TemplateBinding Tag}" Foreground="Gray" Margin="6,3,0,0"
                                            IsHitTestVisible="False"
-                                           Visibility="{Binding Text.IsEmpty,
-                                                                RelativeSource={RelativeSource TemplatedParent},
-                                                                Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                           Visibility="{Binding Text.IsEmpty, Converter={StaticResource BoolToVisibilityConverter}, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
                             </Grid>
                         </Border>
                     </ControlTemplate>
@@ -30,7 +29,7 @@
             </Setter>
         </Style>
 
-        <Style x:Key="ModernButton" TargetType="Button">
+        <Style x:Key="ModernButton" TargetType="{x:Type Button}">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="#4C7DFF"/>
             <Setter Property="Padding" Value="8,4"/>
@@ -41,7 +40,7 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="Button">
+                    <ControlTemplate TargetType="{x:Type Button}">
                         <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
@@ -96,11 +95,11 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="Question" FontWeight="Bold" Margin="0,0,0,4" Foreground="White"/>
+            <TextBlock Grid.Row="0" Text="{DynamicResource QuestionLabel}" FontWeight="Bold" Margin="0,0,0,4" Foreground="White"/>
             <TextBox Grid.Row="1" x:Name="txtQuestion" AcceptsReturn="True" Height="80" TextWrapping="Wrap"
                      Style="{StaticResource WatermarkTextBox}" Tag="Enter the question you want to add"/>
 
-            <TextBlock Grid.Row="3" Text="Answers (select the correct one)" FontWeight="Bold" Margin="0,0,0,6" Foreground="White"/>
+            <TextBlock Grid.Row="3" Text="{DynamicResource AnswersLabel}" FontWeight="Bold" Margin="0,0,0,6" Foreground="White"/>
 
             <Grid Grid.Row="4" Margin="0,2">
                 <Grid.ColumnDefinitions>
@@ -142,21 +141,32 @@
                 <TextBox Grid.Column="2" x:Name="txtAnswer3" Style="{StaticResource WatermarkTextBox}" Tag="Answer 4..."/>
             </Grid>
 
+            <!-- Новый блок: лимит времени на вопрос -->
+            <Grid Grid.Row="9" Margin="0,10,0,13">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="8"/>
+                    <ColumnDefinition Width="120"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{DynamicResource TimeLimitLabel}" VerticalAlignment="Center" Foreground="White"/>
+                <TextBox Grid.Column="2" x:Name="txtTimeLimit" Style="{StaticResource WatermarkTextBox}" Tag="e.g. 15" Margin="0,0,60,0"/>
+            </Grid>
+
             <StackPanel Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock x:Name="txtStatus" VerticalAlignment="Center" Margin="0,0,12,0" Foreground="White"/>
-                <Button x:Name="btnAddQuestion" Content="Add Question" Width="120" Margin="0,0,8,0" 
-            Style="{StaticResource ModernButton}" Click="btnAddQuestion_Click"/>
-                <Button x:Name="btnDelete" Content="Delete Question" Width="120" Margin="0,0,8,0"
-            Style="{StaticResource ModernButton}" Click="btnDelete_Click"/>
-                <Button x:Name="btnStart" Content="Start Game" Width="120" 
-            Style="{StaticResource ModernButton}" Click="btnStart_Click"/>
+                <Button x:Name="btnAddQuestion" Content="{DynamicResource AddQuestion}" Width="120" Margin="0,0,8,0" 
+                        Style="{StaticResource ModernButton}" Click="btnAddQuestion_Click"/>
+                <Button x:Name="btnDelete" Content="{DynamicResource DeleteQuestion}" Width="120" Margin="0,0,8,0"
+                        Style="{StaticResource ModernButton}" Click="btnDelete_Click"/>
+                <Button x:Name="btnStart" Content="{DynamicResource StartGame}" Width="120" 
+                        Style="{StaticResource ModernButton}" Click="btnStart_Click"/>
             </StackPanel>
 
 
             <Border Grid.Row="10" Margin="0,12,0,0" BorderBrush="#FFD0D0D0" BorderThickness="1"
                     Padding="8" CornerRadius="4">
                 <DockPanel>
-                    <TextBlock Text="Added questions:" FontWeight="Bold" Margin="0,0,0,6"
+                    <TextBlock Text="{DynamicResource AddedQuestions}" FontWeight="Bold" Margin="0,0,0,6"
                                DockPanel.Dock="Top" Foreground="White"/>
                     <ListBox x:Name="lstQuestions" ItemsSource="{Binding Questions}" DisplayMemberPath="Text"/>
                 </DockPanel>
