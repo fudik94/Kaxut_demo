@@ -1,0 +1,23 @@
+<Window x:Class="Kaxut_new.views.LoadGameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Load Quiz" Height="360" Width="520" WindowStartupLocation="CenterOwner">
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Select a saved quiz:" FontSize="16" FontWeight="SemiBold"/>
+
+        <ListBox x:Name="lstQuizzes" Grid.Row="2" DisplayMemberPath="Title" />
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="btnDelete" Content="Delete" Width="100" Margin="0,0,8,0" Click="btnDelete_Click"/>
+            <Button x:Name="btnOpen" Content="Open" Width="100" Click="btnOpen_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -22,6 +22,13 @@ public partial class App : Application
 
         Services = services.BuildServiceProvider();
 
+        // Ensure database is created and migrations are applied
+        using (var scope = Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            db.Database.Migrate();
+        }
+
         base.OnStartup(e);
     }
 }

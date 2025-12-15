@@ -18,7 +18,13 @@ namespace Kaxut_new.views
 
         private void btnLoadGame_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(this, "Not implemented yet.");
+            var dlg = new LoadGameWindow { Owner = this };
+            if (dlg.ShowDialog() == true && dlg.SelectedQuiz != null)
+            {
+                var game = new GameWindow(dlg.SelectedQuiz, isLoadedQuiz: true) { Owner = this };
+                game.Show();
+                this.Hide();
+            }
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)

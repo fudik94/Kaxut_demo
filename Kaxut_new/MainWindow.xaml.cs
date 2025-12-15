@@ -9,9 +9,16 @@ namespace Kaxut_new
     {
         private readonly Quiz _quiz = new Quiz
         {
-            Code = "QZ001",
+            Code = GenerateQuizCode(),
             Title = "New Quiz"
         };
+
+        private static string GenerateQuizCode()
+        {
+            // QZ-XXXXXX random code
+            var hex = Convert.ToHexString(Guid.NewGuid().ToByteArray());
+            return $"QZ-{hex[..6]}";
+        }
 
         public MainWindow()
         {
@@ -27,7 +34,7 @@ namespace Kaxut_new
                 return;
             }
 
-            var gameWindow = new GameWindow(_quiz)
+            var gameWindow = new GameWindow(_quiz, isLoadedQuiz: false)
             {
                 Owner = this
             };
@@ -74,20 +81,23 @@ namespace Kaxut_new
                 }
             }
 
-            // Создаём MultipleChoiceQuestion
+            var optionsList = new System.Collections.Generic.List<AnswerOption>
+            {
+                new AnswerOption { Text = a0, IsCorrect = correctIndex == 0 },
+                new AnswerOption { Text = a1, IsCorrect = correctIndex == 1 },
+                new AnswerOption { Text = a2, IsCorrect = correctIndex == 2 },
+                new AnswerOption { Text = a3, IsCorrect = correctIndex == 3 }
+            };
+
+            // Создаём MultipleChoiceQuestion и заполняем ОБЕ коллекции
             var question = new MultipleChoiceQuestion
             {
                 Text = text,
                 Order = _quiz.Questions.Count + 1,
                 CorrectIndex = correctIndex,
                 TimeLimitSeconds = timeLimitSeconds,
-                Options = new System.Collections.Generic.List<AnswerOption>
-                {
-                    new AnswerOption { Text = a0, IsCorrect = correctIndex == 0 },
-                    new AnswerOption { Text = a1, IsCorrect = correctIndex == 1 },
-                    new AnswerOption { Text = a2, IsCorrect = correctIndex == 2 },
-                    new AnswerOption { Text = a3, IsCorrect = correctIndex == 3 }
-                }
+                AnswerOptions = optionsList,
+                Options = optionsList
             };
 
             _quiz.Questions.Add(question);

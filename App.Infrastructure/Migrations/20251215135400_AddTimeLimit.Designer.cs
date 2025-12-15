@@ -3,6 +3,7 @@ using System;
 using App.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251215135400_AddTimeLimit")]
+    partial class AddTimeLimit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
@@ -48,6 +51,36 @@ namespace App.Infrastructure.Migrations
                     b.HasIndex("QuestionId");
 
                     b.ToTable("AnswerOptions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b2585133-6c48-4a4b-931a-4452a72fa089"),
+                            IsCorrect = true,
+                            QuestionId = new Guid("ad7f5454-be71-4fbd-8478-ba49407a30b6"),
+                            Text = "Место для хранения значения"
+                        },
+                        new
+                        {
+                            Id = new Guid("9576aa35-31d7-4d24-8478-50ecbd9c14f5"),
+                            IsCorrect = false,
+                            QuestionId = new Guid("ad7f5454-be71-4fbd-8478-ba49407a30b6"),
+                            Text = "Тип данных"
+                        },
+                        new
+                        {
+                            Id = new Guid("af714130-220e-4060-82a6-f6a913c97417"),
+                            IsCorrect = true,
+                            QuestionId = new Guid("a5ab5d08-9f7f-42ea-a98d-5c29242b17e0"),
+                            Text = "Повторяющееся выполнение блока кода"
+                        },
+                        new
+                        {
+                            Id = new Guid("3f33e92e-cb63-4cc4-b0e2-238312717468"),
+                            IsCorrect = false,
+                            QuestionId = new Guid("a5ab5d08-9f7f-42ea-a98d-5c29242b17e0"),
+                            Text = "Класс в C#"
+                        });
                 });
 
             modelBuilder.Entity("App.Domain.Entities.Question", b =>
@@ -108,6 +141,15 @@ namespace App.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Quizzes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("224c892c-4463-448a-918b-6eae1aa5968f"),
+                            Code = "QZ001",
+                            CreatedAt = new DateTime(2025, 12, 15, 13, 53, 59, 329, DateTimeKind.Utc).AddTicks(3808),
+                            Title = "C# Basics"
+                        });
                 });
 
             modelBuilder.Entity("App.Domain.Entities.Tag", b =>
@@ -158,6 +200,28 @@ namespace App.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasDiscriminator().HasValue("MultipleChoice");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ad7f5454-be71-4fbd-8478-ba49407a30b6"),
+                            Order = 1,
+                            QuestionType = "MultipleChoice",
+                            QuizId = new Guid("224c892c-4463-448a-918b-6eae1aa5968f"),
+                            Text = "Что такое переменная?",
+                            TimeLimitSeconds = 15,
+                            CorrectIndex = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("a5ab5d08-9f7f-42ea-a98d-5c29242b17e0"),
+                            Order = 2,
+                            QuestionType = "MultipleChoice",
+                            QuizId = new Guid("224c892c-4463-448a-918b-6eae1aa5968f"),
+                            Text = "Что такое цикл?",
+                            TimeLimitSeconds = 15,
+                            CorrectIndex = 0
+                        });
                 });
 
             modelBuilder.Entity("App.Domain.Entities.AnswerOption", b =>
