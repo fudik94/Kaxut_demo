@@ -27,6 +27,9 @@ public partial class App : Application
         {
             var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             db.Database.Migrate();
+
+            // Здесь вызываем сидирование 2 системных квизов
+            DbInitializer.EnsureSystemQuizzesAsync(db).GetAwaiter().GetResult();
         }
 
         base.OnStartup(e);

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;   
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
 
 namespace App.Domain.Entities
@@ -13,7 +13,6 @@ namespace App.Domain.Entities
         public string Title { get; set; } = string.Empty;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
 
         public ObservableCollection<Question> Questions { get; set; }
             = new ObservableCollection<Question>();

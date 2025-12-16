@@ -1,3 +1,4 @@
+using App.Domain.Entities;
 using System.Windows;
 
 namespace Kaxut_new.views
@@ -11,9 +12,25 @@ namespace Kaxut_new.views
 
         private void btnNewGame_Click(object sender, RoutedEventArgs e)
         {
-            var main = new MainWindow { Owner = this };
-            main.Show();
-            this.Hide();
+            // Открываем MainWindow для создания квиза
+            var createQuizWindow = new MainWindow { Owner = this };
+            bool? result = createQuizWindow.ShowDialog();
+
+            if (result == true)
+            {
+                // Получаем созданный квиз через CurrentQuiz
+                var quiz = createQuizWindow.CurrentQuiz;
+
+                // Открываем GameWindow с созданным квизом
+                var gameWindow = new GameWindow(quiz, isLoadedQuiz: false)
+                {
+                    Owner = this
+                };
+                gameWindow.Show();
+
+                // Скрываем стартовое окно
+                this.Hide();
+            }
         }
 
         private void btnLoadGame_Click(object sender, RoutedEventArgs e)

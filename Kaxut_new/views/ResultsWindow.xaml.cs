@@ -28,22 +28,6 @@ namespace Kaxut_new
         // Кнопка "New Game"
         private void btnNewGame_Click(object sender, RoutedEventArgs e)
         {
-            if (Owner is MainWindow ownerMain)
-            {
-                if (ownerMain.WindowState == WindowState.Minimized)
-                    ownerMain.WindowState = WindowState.Normal;
-
-                ownerMain.Activate();
-                ownerMain.Focus();
-            }
-            else
-            {
-                var main = new MainWindow();
-                Application.Current.MainWindow = main;
-                main.Show();
-                main.Activate();
-            }
-
             Close();
         }
     }

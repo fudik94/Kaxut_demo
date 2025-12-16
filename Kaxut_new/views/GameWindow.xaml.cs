@@ -81,9 +81,16 @@ namespace Kaxut_new
 
         private void LoadCurrentQuestion()
         {
+            if (_quiz.Questions == null || _quiz.Questions.Count == 0)
+            {
+                lblQuestion.Text = "Add questions to start the quiz!";
+                SetAnswerButtonsEnabled(false);
+                return;
+            }
+
             if (_currentIndex < 0 || _currentIndex >= _quiz.Questions.Count)
             {
-                EndGame();
+                _ = EndGameAsync(); 
                 return;
             }
 
@@ -91,15 +98,13 @@ namespace Kaxut_new
             ResetAnswerButtonsStyles();
             SetAnswerButtonsEnabled(true);
 
-            if (_quiz.Questions[_currentIndex] is not MultipleChoiceQuestion q) return;
-
+            var q = _quiz.Questions[_currentIndex];
             lblQuestion.Text = q.Text;
 
-            var opts = (q.Options != null && q.Options.Count > 0) ? q.Options : q.AnswerOptions;
+            var opts = q.AnswerOptions;
             if (opts == null || opts.Count < 4)
             {
                 MessageBox.Show(this, "Question has no options.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                EndGame();
                 return;
             }
 
@@ -110,6 +115,7 @@ namespace Kaxut_new
 
             _timeRemaining = q.TimeLimitSeconds > 0 ? q.TimeLimitSeconds : 15;
             UpdateStatus();
+
             _timer?.Stop();
             _timer?.Start();
         }
@@ -135,9 +141,10 @@ namespace Kaxut_new
             int selectedIndex = GetButtonIndex(sender);
             if (selectedIndex < 0) return;
 
-            if (_quiz.Questions[_currentIndex] is not MultipleChoiceQuestion mcq) return;
+            var q = _quiz.Questions[_currentIndex];
+            int correctIndex = q.AnswerOptions.FindIndex(o => o.IsCorrect);
+            if (correctIndex < 0) return;
 
-            int correctIndex = mcq.CorrectIndex;
             bool isCorrect = selectedIndex == correctIndex;
 
             AnimateAnswer(correctIndex, true);
@@ -170,9 +177,12 @@ namespace Kaxut_new
             if (_answered) return;
             _answered = true;
 
-            if (_quiz.Questions[_currentIndex] is not MultipleChoiceQuestion mcq) return;
+            var q = _quiz.Questions[_currentIndex];
+            int correctIndex = q.AnswerOptions.FindIndex(o => o.IsCorrect);
 
-            AnimateAnswer(mcq.CorrectIndex, true);
+            if (correctIndex >= 0)
+                AnimateAnswer(correctIndex, true);
+
             SetAnswerButtonsEnabled(false);
 
             _soundFail?.Stop();
@@ -201,7 +211,8 @@ namespace Kaxut_new
 
             var storyboard = new Storyboard();
             Storyboard.SetTarget(animation, button);
-            Storyboard.SetTargetProperty(animation, new PropertyPath("(Button.Background).(SolidColorBrush.Color)"));
+            Storyboard.SetTargetProperty(animation,
+                new PropertyPath("(Button.Background).(SolidColorBrush.Color)"));
             storyboard.Children.Add(animation);
             storyboard.Begin();
 
@@ -246,7 +257,7 @@ namespace Kaxut_new
             txtProgress.Text = $"{_currentIndex + 1}/{_quiz.Questions.Count}";
         }
 
-        private async void EndGame()
+        private async Task EndGameAsync()
         {
             _timer?.Stop();
 
@@ -254,65 +265,60 @@ namespace Kaxut_new
             {
                 Owner = this
             };
-            results.Show();
+            results.ShowDialog(); 
 
             if (!_isLoadedQuiz)
             {
-                var save = MessageBox.Show(this, "Save this quiz to database?", "Save Quiz", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                var save = MessageBox.Show(this,
+                    "Do you want to save this quiz to the database?",
+                    "Save Quiz", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
                 if (save == MessageBoxResult.Yes)
                 {
-                    var title = PromptForTitle(_quiz.Title);
-                    if (!string.IsNullOrWhiteSpace(title))
+                    var titleWindow = new TitlePromptWindow(_quiz.Title) { Owner = this };
+                    bool? titleResult = titleWindow.ShowDialog();
+                    if (titleResult == true && !string.IsNullOrWhiteSpace(titleWindow.ResultTitle))
                     {
-                        _quiz.Title = title.Trim();
-                    }
-
-                    try
-                    {
+                        _quiz.Title = titleWindow.ResultTitle.Trim();
                         await SaveQuizAsync(_quiz);
-                        MessageBox.Show(this, "Quiz saved.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(this, $"Save failed: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(this, "Quiz saved successfully.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
             }
 
-            // Navigate to StartWindow (initial screen)
-            ShowStartScreen();
+            CloseAllExceptStartWindow();
 
-            Close();
+            ShowStartScreen();
+        }
+
+        private void CloseAllExceptStartWindow()
+        {
+            foreach (Window w in Application.Current.Windows)
+            {
+                if (w != this && !(w is StartWindow))
+                {
+                    w.Close();
+                }
+            }
+
+            this.Close();
         }
 
         private void ShowStartScreen()
         {
-            // If owner is StartWindow, just show it
-            if (Owner is StartWindow start)
+            var startWindow = Application.Current.Windows.OfType<StartWindow>().FirstOrDefault();
+            if (startWindow != null)
             {
-                start.Show();
-                return;
+                startWindow.Show();
+                startWindow.Activate();
             }
-
-            // If owner is MainWindow, try to show its owner (StartWindow)
-            if (Owner is MainWindow main && main.Owner is StartWindow startOwner)
+            else
             {
-                startOwner.Show();
-                // Optionally close the MainWindow so user returns to start
-                try { main.Close(); } catch { }
-                return;
+                var newStart = new StartWindow();
+                newStart.Show();
             }
-
-            // Fallback: create a new StartWindow
-            var newStart = new StartWindow();
-            newStart.Show();
         }
 
-        private string PromptForTitle(string current)
-        {
-            var dlg = new TitlePromptWindow(current) { Owner = this };
-            return dlg.ShowDialog() == true ? dlg.ResultTitle ?? current : current;
-        }
 
         private static async Task SaveQuizAsync(Quiz quiz)
         {
@@ -342,33 +348,30 @@ namespace Kaxut_new
 
             foreach (var q in quiz.Questions)
             {
-                if (q is MultipleChoiceQuestion mc)
+                var nq = new MultipleChoiceQuestion
                 {
-                    var nq = new MultipleChoiceQuestion
+                    Id = Guid.NewGuid(),
+                    Text = q.Text,
+                    Order = q.Order,
+                    CorrectIndex = q.AnswerOptions.FindIndex(o => o.IsCorrect),
+                    TimeLimitSeconds = q.TimeLimitSeconds,
+                    Quiz = newQuiz,
+                    QuizId = newQuiz.Id
+                };
+
+                foreach (var opt in q.AnswerOptions)
+                {
+                    nq.AnswerOptions.Add(new AnswerOption
                     {
                         Id = Guid.NewGuid(),
-                        Text = mc.Text,
-                        Order = mc.Order,
-                        CorrectIndex = mc.CorrectIndex,
-                        TimeLimitSeconds = mc.TimeLimitSeconds,
-                        Quiz = newQuiz,
-                        QuizId = newQuiz.Id
-                    };
-
-                    foreach (var opt in mc.AnswerOptions)
-                    {
-                        nq.AnswerOptions.Add(new AnswerOption
-                        {
-                            Id = Guid.NewGuid(),
-                            Text = opt.Text,
-                            IsCorrect = opt.IsCorrect,
-                            Question = nq,
-                            QuestionId = nq.Id
-                        });
-                    }
-
-                    newQuiz.Questions.Add(nq);
+                        Text = opt.Text,
+                        IsCorrect = opt.IsCorrect,
+                        Question = nq,
+                        QuestionId = nq.Id
+                    });
                 }
+
+                newQuiz.Questions.Add(nq);
             }
 
             db.Quizzes.Add(newQuiz);

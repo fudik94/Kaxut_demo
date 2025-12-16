@@ -25,7 +25,12 @@ namespace Kaxut_new.views
 
         private async Task LoadQuizzesAsync()
         {
-            if (App.Services is null) { MessageBox.Show(this, "Service provider is not initialized"); return; }
+            if (App.Services is null)
+            {
+                MessageBox.Show(this, "Service provider is not initialized");
+                return;
+            }
+
             using var scope = App.Services.CreateScope();
             var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
@@ -38,29 +43,45 @@ namespace Kaxut_new.views
             lstQuizzes.ItemsSource = data;
         }
 
-        private void btnOpen_Click(object sender, RoutedEventArgs e)
+        private async void btnOpen_Click(object sender, RoutedEventArgs e)
         {
-            if (lstQuizzes.SelectedItem is Quiz quiz)
-            {
-                SelectedQuiz = quiz;
-                DialogResult = true;
-                Close();
-            }
-            else
+            if (lstQuizzes.SelectedItem is not Quiz selected)
             {
                 MessageBox.Show(this, "Select a quiz.");
+                return;
             }
+
+            using var scope = App.Services!.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+            var quiz = await db.Quizzes
+                .Include(q => q.Questions)
+                    .ThenInclude(q => q.AnswerOptions)
+                .FirstOrDefaultAsync(q => q.Id == selected.Id);
+
+            if (quiz == null)
+            {
+                MessageBox.Show(this, "Quiz not found.");
+                return;
+            }
+
+            SelectedQuiz = quiz;
+            DialogResult = true;
+            Close();
         }
 
         private async void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             if (lstQuizzes.SelectedItem is not Quiz quiz) return;
 
-            var confirm = MessageBox.Show(this, $"Delete '{quiz.Title}'?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var confirm = MessageBox.Show(this, $"Delete '{quiz.Title}'?", "Confirm",
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
+
             if (confirm != MessageBoxResult.Yes) return;
 
             using var scope = App.Services!.CreateScope();
             var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
             db.Quizzes.Remove(quiz);
             await db.SaveChangesAsync();
 
