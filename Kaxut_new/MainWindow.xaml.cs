@@ -53,9 +53,13 @@ namespace Kaxut_new
                 string.IsNullOrWhiteSpace(a1) || string.IsNullOrWhiteSpace(a2) ||
                 string.IsNullOrWhiteSpace(a3))
             {
-                MessageBox.Show(this, "Fill in the question and all FOUR answers.", "Input error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                string errorMessage = (string)this.FindResource("FillQuestionError");
+                string errorTitle = (string)this.FindResource("InputErrorTitle");
+
+                MessageBox.Show(this, errorMessage, errorTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+
 
             int correctIndex =
                 rbCorrect0.IsChecked == true ? 0 :
@@ -76,9 +80,13 @@ namespace Kaxut_new
             {
                 if (!int.TryParse(timeLimitText, out timeLimitSeconds) || timeLimitSeconds <= 0 || timeLimitSeconds > 600)
                 {
-                    MessageBox.Show(this, "Enter a valid time limit in seconds (1-600).", "Input error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    string errorMessage = (string)this.FindResource("InvalidTimeError");
+                    string errorTitle = (string)this.FindResource("InputErrorTitle");
+
+                    MessageBox.Show(this, errorMessage, errorTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
+
             }
 
             var optionsList = new System.Collections.Generic.List<AnswerOption>

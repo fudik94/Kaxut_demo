@@ -21,4 +21,11 @@
   <system:String x:Key="ResultsHeader">Results</system:String>
   <system:String x:Key="CorrectAnswersLabel">Correct answers:</system:String>
   <system:String x:Key="TotalScoreLabel">Total score:</system:String>
+  <system:String x:Key="ProviderErrorInit">Service provider is not initialized</system:String>
+  <system:String x:Key="SelectQuiz">Select a quiz.</system:String>
+  <system:String x:Key="QuizNotFound">Quiz not found.</system:String>
+  <system:String x:Key="FillQuestionError">Fill in the question and all FOUR answers.</system:String>
+  <system:String x:Key="InputErrorTitle">Input error</system:String>
+  <system:String x:Key="InvalidTimeError">Enter a valid time limit in seconds (1-600).</system:String>
+
 </ResourceDictionary>
