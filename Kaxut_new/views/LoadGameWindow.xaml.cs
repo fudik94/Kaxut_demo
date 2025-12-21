@@ -27,7 +27,8 @@ namespace Kaxut_new.views
         {
             if (App.Services is null)
             {
-                MessageBox.Show(this, "Service provider is not initialized");
+                var message = (string)Application.Current.Resources["ProviderErrorInit"];
+                MessageBox.Show(this, message);
                 return;
             }
 
@@ -47,7 +48,8 @@ namespace Kaxut_new.views
         {
             if (lstQuizzes.SelectedItem is not Quiz selected)
             {
-                MessageBox.Show(this, "Select a quiz.");
+                var message = (string)Application.Current.Resources["SelectQuiz"];
+                MessageBox.Show(this, message);
                 return;
             }
 
@@ -61,7 +63,8 @@ namespace Kaxut_new.views
 
             if (quiz == null)
             {
-                MessageBox.Show(this, "Quiz not found.");
+                var message = (string)Application.Current.Resources["QuizNotFound"];
+                MessageBox.Show(this, message);
                 return;
             }
 

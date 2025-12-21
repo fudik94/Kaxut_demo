@@ -3,6 +3,7 @@ using App.Infrastructure.Services;
 using App.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System.Windows;
 
 namespace Kaxut_new;
@@ -15,6 +16,12 @@ public partial class App : Application
     {
         var services = new ServiceCollection();
 
+        services.AddLogging(builder =>
+        {
+            builder.AddDebug();    
+            builder.AddConsole();  
+        });
+
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlite("Data Source=Kaxut.db"));
 
@@ -22,14 +29,14 @@ public partial class App : Application
 
         Services = services.BuildServiceProvider();
 
-        // Ensure database is created and migrations are applied
         using (var scope = Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             db.Database.Migrate();
 
-            // Здесь вызываем сидирование 2 системных квизов
-            DbInitializer.EnsureSystemQuizzesAsync(db).GetAwaiter().GetResult();
+            DbInitializer.EnsureSystemQuizzesAsync(db)
+                .GetAwaiter()
+                .GetResult();
         }
 
         base.OnStartup(e);

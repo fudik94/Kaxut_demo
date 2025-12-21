@@ -6,7 +6,7 @@
   <system:String x:Key="NewGame">Uus mäng</system:String>
   <system:String x:Key="LoadGame">Laadi mäng</system:String>
   <system:String x:Key="Exit">Välju</system:String>
-  <system:String x:Key="Credits">autorid: Fuad ,Julia ,Suzanna</system:String>
+  <system:String x:Key="Credits">autorid: Fuad, Yulia, Suzanna</system:String>
   <system:String x:Key="QuestionLabel">Küsimus</system:String>
   <system:String x:Key="AnswersLabel">Vastused (vali õige)</system:String>
   <system:String x:Key="AddQuestion">Lisa küsimus</system:String>
