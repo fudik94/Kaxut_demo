@@ -83,7 +83,7 @@ namespace Kaxut_new
         {
             if (_quiz.Questions == null || _quiz.Questions.Count == 0)
             {
-                lblQuestion.Text = "Add questions to start the quiz!";
+                lblQuestion.Text = Application.Current.TryFindResource("AddQuestionToStartGame")?.ToString();
                 SetAnswerButtonsEnabled(false);
                 return;
             }
@@ -104,7 +104,19 @@ namespace Kaxut_new
             var opts = q.AnswerOptions;
             if (opts == null || opts.Count < 4)
             {
-                MessageBox.Show(this, "Question has no options.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                var message = Application.Current
+                    .TryFindResource("QuestionHasNoOptions")?.ToString();
+
+                var title = Application.Current
+                    .TryFindResource("ErrorTitle")?.ToString();
+
+                MessageBox.Show(
+                    this,
+                    message,
+                    title,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
                 return;
             }
 
@@ -269,9 +281,16 @@ namespace Kaxut_new
 
             if (!_isLoadedQuiz)
             {
+                string saveMessage = (string)Application.Current.Resources["SaveQuizMessage"];
+                string saveTitle = (string)Application.Current.Resources["SaveQuizTitle"];
+                string infoTitle = (string)Application.Current.Resources["InfoTitle"];
+                string quizSavedMessage = (string)Application.Current.Resources["QuizSavedMessage"];
+
                 var save = MessageBox.Show(this,
-                    "Do you want to save this quiz to the database?",
-                    "Save Quiz", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    saveMessage,
+                    saveTitle,
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
 
                 if (save == MessageBoxResult.Yes)
                 {
@@ -281,7 +300,7 @@ namespace Kaxut_new
                     {
                         _quiz.Title = titleWindow.ResultTitle.Trim();
                         await SaveQuizAsync(_quiz);
-                        MessageBox.Show(this, "Quiz saved successfully.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show(this, quizSavedMessage, infoTitle, MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
             }

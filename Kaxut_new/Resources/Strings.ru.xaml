@@ -21,5 +21,16 @@
   <system:String x:Key="ResultsHeader">Результаты</system:String>
   <system:String x:Key="CorrectAnswersLabel">Правильных ответов:</system:String>
   <system:String x:Key="TotalScoreLabel">Общий счет:</system:String>
-  
+  <system:String x:Key="AddQuestionToStartText">Добавьте вопросы, чтобы начать викторину!</system:String>
+  <system:String x:Key="QuestionHasNoOptions">В вопросе нет вариантов ответа.</system:String>
+  <system:String x:Key="ErrorTitle">Ошибка</system:String>
+  <system:String x:Key="SaveQuizMessage">Вы хотите сохранить этот тест в базу данных?</system:String>
+  <system:String x:Key="SaveQuizTitle">Сохранить викторину</system:String>
+  <system:String x:Key="InfoTitle">Информация</system:String>
+  <system:String x:Key="QuizSavedMessage">Викторина успешно сохранена.</system:String>
+  <system:String x:Key="AddQuestionBeforeStartMessage">Пожалуйста, добавьте хотя бы один вопрос, прежде чем начать.</system:String>
+  <system:String x:Key="ChooseCorrectAnswerMessage">Выберите правильный ответ.</system:String>
+  <system:String x:Key="InputErrorTitle">Ошибка ввода</system:String>
+  <system:String x:Key="QuestionDeletedMessage">Вопрос удалён.</system:String>
+  <system:String x:Key="SelectQuestionToDeleteMessage">Выберите вопрос, который хотите удалить.</system:String>
 </ResourceDictionary>

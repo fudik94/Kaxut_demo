@@ -30,7 +30,10 @@ namespace Kaxut_new
         {
             if (_quiz.Questions.Count == 0)
             {
-                MessageBox.Show(this, "Add at least one question before starting.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                string message = (string)Application.Current.Resources["AddQuestionBeforeStartMessage"];
+                string title = (string)Application.Current.Resources["InfoTitle"];
+
+                MessageBox.Show(this, message, title, MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -65,7 +68,10 @@ namespace Kaxut_new
 
             if (correctIndex == -1)
             {
-                MessageBox.Show(this, "Choose the correct answer.", "Input error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                string message = (string)Application.Current.Resources["ChooseCorrectAnswerMessage"];
+                string title = (string)Application.Current.Resources["InputErrorTitle"];
+
+                MessageBox.Show(this, message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -119,11 +125,13 @@ namespace Kaxut_new
             if (lstQuestions.SelectedItem is Question selected)
             {
                 _quiz.Questions.Remove(selected);
-                txtStatus.Text = "Question deleted.";
+                txtStatus.Text = (string)Application.Current.Resources["QuestionDeletedMessage"];
             }
             else
             {
-                MessageBox.Show(this, "Select a question to delete.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                string message = (string)Application.Current.Resources["SelectQuestionToDeleteMessage"];
+                string title = (string)Application.Current.Resources["InfoTitle"];
+                MessageBox.Show(this, message, title, MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

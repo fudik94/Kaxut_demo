@@ -21,4 +21,16 @@
   <system:String x:Key="ResultsHeader">Results</system:String>
   <system:String x:Key="CorrectAnswersLabel">Correct answers:</system:String>
   <system:String x:Key="TotalScoreLabel">Total score:</system:String>
+  <system:String x:Key="AddQuestionToStartText">Add questions to start the quiz!</system:String>
+  <system:String x:Key="QuestionHasNoOptions">Question has no options.</system:String>
+  <system:String x:Key="ErrorTitle">Error</system:String>
+  <system:String x:Key="SaveQuizMessage">Do you want to save this quiz to the database?</system:String>
+  <system:String x:Key="SaveQuizTitle">Save Quiz</system:String>
+  <system:String x:Key="InfoTitle">Info</system:String>
+  <system:String x:Key="QuizSavedMessage">Quiz saved successfully.</system:String>
+  <system:String x:Key="AddQuestionBeforeStartMessage">Add at least one question before starting.</system:String>
+  <system:String x:Key="ChooseCorrectAnswerMessage">Choose the correct answer.</system:String>
+  <system:String x:Key="InputErrorTitle">Input error</system:String>
+  <system:String x:Key="QuestionDeletedMessage">Question deleted.</system:String>
+  <system:String x:Key="SelectQuestionToDeleteMessage">Select a question to delete.</system:String>
 </ResourceDictionary>

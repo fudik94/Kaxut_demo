@@ -21,4 +21,16 @@
   <system:String x:Key="ResultsHeader">Tulemused</system:String>
   <system:String x:Key="CorrectAnswersLabel">Õigeid vastuseid:</system:String>
   <system:String x:Key="TotalScoreLabel">Koguskoor:</system:String>
+  <system:String x:Key="AddQuestionToStartText">Lisa küsimusi viktoriini alustamiseks!</system:String>
+  <system:String x:Key="QuestionHasNoOptions">Küsimusel pole valikuid.</system:String>
+  <system:String x:Key="ErrorTitle">Viga</system:String>
+  <system:String x:Key="SaveQuizMessage">Kas soovite selle viktoriini andmebaasi salvestada?</system:String>
+  <system:String x:Key="SaveQuizTitle">Salvesta viktoriin</system:String>
+  <system:String x:Key="InfoTitle">Info</system:String>
+  <system:String x:Key="QuizSavedMessage">Viktoriini salvestamine õnnestus.</system:String>
+  <system:String x:Key="AddQuestionBeforeStartMessage">Enne alustamist lisa vähemalt üks küsimus.</system:String>
+  <system:String x:Key="ChooseCorrectAnswerMessage">Vali õige vastus.</system:String>
+  <system:String x:Key="InputErrorTitle">Sisestusviga</system:String>
+  <system:String x:Key="QuestionDeletedMessage">Küsimus kustutatud.</system:String>
+  <system:String x:Key="SelectQuestionToDeleteMessage">Valige kustutatav küsimus.</system:String>
 </ResourceDictionary>
