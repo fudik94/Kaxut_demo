@@ -6,7 +6,7 @@
   <system:String x:Key="NewGame">Новая игра</system:String>
   <system:String x:Key="LoadGame">Загрузить игру</system:String>
   <system:String x:Key="Exit">Выход</system:String>
-  <system:String x:Key="Credits">авторы: Фуад, Юля, Сюзанна</system:String>
+  <system:String x:Key="Credits">авторы: Фуад, Юлия, Сюзанна</system:String>
   <system:String x:Key="QuestionLabel">Вопрос</system:String>
   <system:String x:Key="AnswersLabel">Ответы (выберите правильный)</system:String>
   <system:String x:Key="AddQuestion">Добавить вопрос</system:String>

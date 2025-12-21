@@ -6,7 +6,7 @@
   <system:String x:Key="NewGame">New Game</system:String>
   <system:String x:Key="LoadGame">Load Game</system:String>
   <system:String x:Key="Exit">Exit</system:String>
-  <system:String x:Key="Credits">created by : Fuad ,Julia ,Suzanna</system:String>
+  <system:String x:Key="Credits">created by : Fuad, Yulia, Suzanna</system:String>
   <system:String x:Key="QuestionLabel">Question</system:String>
   <system:String x:Key="AnswersLabel">Answers (select the correct one)</system:String>
   <system:String x:Key="AddQuestion">Add Question</system:String>
