@@ -34,7 +34,7 @@
   <system:String x:Key="QuestionDeletedMessage">Question deleted.</system:String>
   <system:String x:Key="SelectQuestionToDeleteMessage">Select a question to delete.</system:String>
   <!-- after test -->
-  <system:String x:Key="FillQuestionError">Please fill all question and answer fields.</system:String>
+  <system:String x:Key="FillQuestionError">Please fill out the question and four answer fields.</system:String>
   <system:String x:Key="InvalidTimeError">Please enter a valid time between 1 and 600 seconds.</system:String>
 
 
