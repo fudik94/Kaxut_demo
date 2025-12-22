@@ -33,4 +33,9 @@
   <system:String x:Key="InputErrorTitle">Sisestusviga</system:String>
   <system:String x:Key="QuestionDeletedMessage">Küsimus kustutatud.</system:String>
   <system:String x:Key="SelectQuestionToDeleteMessage">Valige kustutatav küsimus.</system:String>
+  <!-- after test -->
+  <system:String x:Key="FillQuestionError">Palun täitke küsimus ja kõik vastusevariandid.</system:String>
+  <system:String x:Key="InvalidTimeError">Sisestage korrektne ajapiirang vahemikus 1 kuni 600 sekundit.</system:String>
+
+
 </ResourceDictionary>

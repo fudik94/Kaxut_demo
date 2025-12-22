@@ -33,4 +33,14 @@
   <system:String x:Key="InputErrorTitle">Ошибка ввода</system:String>
   <system:String x:Key="QuestionDeletedMessage">Вопрос удалён.</system:String>
   <system:String x:Key="SelectQuestionToDeleteMessage">Выберите вопрос, который хотите удалить.</system:String>
+
+  <!-- after test -->
+  <system:String x:Key="FillQuestionError">Пожалуйста, заполните вопрос и все варианты ответов.</system:String>
+  <system:String x:Key="InvalidTimeError">Введите корректный лимит времени от 1 до 600 секунд.</system:String>
+
+
+
+
+
+
 </ResourceDictionary>

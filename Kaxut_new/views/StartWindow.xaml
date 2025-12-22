@@ -1,7 +1,7 @@
 <Window x:Class="Kaxut_new.views.StartWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Kaxut" Height="360" Width="520" WindowStartupLocation="CenterScreen">
+        Title="Kaxut" Height="600" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <!-- background -->
         <Image Source="/Images/back_gr_fin.jpg"

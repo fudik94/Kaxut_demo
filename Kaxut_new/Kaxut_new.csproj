@@ -11,6 +11,7 @@
   <ItemGroup>
     <None Remove="Images\back_gr_fin.jpg" />
     <None Remove="Images\IMG_8990.JPG" />
+    <None Remove="Images\new_background.jpg" />
     <None Remove="Sounds\fail.wav" />
     <None Remove="Sounds\win.wav" />
   </ItemGroup>
@@ -56,6 +57,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\IMG_8990.JPG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\new_background.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
